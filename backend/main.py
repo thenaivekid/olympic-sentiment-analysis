@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
@@ -30,14 +31,14 @@ def greet():
 @app.get('/overall')
 def overall_sentiment():
     count = df['num_labels'].value_counts()
-    return {'title': 'overall', 'no_of_tweets': df.shape[0], 'count': list(count)}
+    return JSONResponse(content={'title': 'overall', 'no_of_tweets': df.shape[0], 'count': list(count)}, status_code=200)
 
 @app.post("/sentiments")
 def process_text(request: KeywordRequest):
     print(request.query)
     filtered_df = df[df['text'].str.contains(request.query, case=False)]
     count = filtered_df['num_labels'].value_counts()
-    return {'title': request.query, 'no_of_tweets': filtered_df.shape[0], 'count': list(count)}
+    return JSONResponse(content={'title': request.query, 'no_of_tweets': filtered_df.shape[0], 'count': list(count)}, status_code=200)
 
 @app.post('/tweets')
 def show_tweets(request: TweetsRequest):
@@ -46,5 +47,8 @@ def show_tweets(request: TweetsRequest):
     if 0 <= request.sentiment <= 2:
         filtered_df = filtered_df[filtered_df['num_labels'] == request.sentiment]
     tweets = list(filtered_df.head(request.no_of_tweets)['text'])
-    print(tweets)
-    return {'tweets': tweets}
+    if tweets:
+        print(tweets)
+        return JSONResponse(content={'tweets': tweets}, status_code=200)
+    
+    return JSONResponse(content='resources not found error', status_code=400)

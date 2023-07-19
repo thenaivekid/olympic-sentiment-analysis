@@ -25,7 +25,7 @@ function App() {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "query": keyword
+      query: keyword
     });
 
     var requestOptions = {
@@ -53,31 +53,45 @@ function App() {
     query_text_element.value = '';
   }
 
-  
   const fetchTweets = async(title) => {
     // FIXME
     console.log('fetch tweets', title)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    
     var raw = JSON.stringify({
       "query": title,
       "no_of_tweets": 20,
       "sentiment": 3
     });
-
+    
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
       body: raw,
     };
-    const res = await fetch('http://127.0.0.1:8000/tweets',requestOptions
-    );
-    const data = await res.json();
+  
+    fetch('http://127.0.0.1:8000/tweet',requestOptions)
+    .then ((res) => {
+      console.log(res, "anil") 
+      console.log("status", res.status)
+    const data = res.json();
     setTweets(data.tweets)
     setKeyword(title)
-    console.log(data)
-  } 
+    console.log(data.tweets)
+    })
+    .catch((error) =>{
+      console.log("i am error", error)
+    })
+    // console.log("status", res.status)
+    // const data = await res.json();
+    // setTweets(data.tweets)
+    // setKeyword(title)
+    // console.log(data.tweets)
+    
+ 
+  }
+
 
   const clearTweets = () => {
     setTweets([])
@@ -126,7 +140,7 @@ function App() {
         <Plots chartData={makeData(overallSent.count)} title={'Overall Sentiment'} no_of_tweets={overallSent.no_of_tweets} ></Plots>
       </div>
 
-      <div>
+      <div id='tweet_container'>
         <Tweets tweets={tweets} title={keyword} clearTweets={clearTweets}></Tweets>
       </div>
 
