@@ -90,7 +90,10 @@ input{
   height: 2rem;
   border-radius: 10%;
 }
-
+.twit_title{
+  font-size: 50px;
+  text-transform: capitalize;
+}
 #search_form{
   display: flex;
   flex-direction: row;
@@ -119,6 +122,19 @@ input{
   justify-content: space-between;
 }
 
+.tweet_list{
+  margin-top: 20px;
+  font-size: 20px;
+  background-color: #444;
+  padding: 20px;
+  border-radius: 20px;
+}
+.loading{
+  font-size: 30px;
+  margin-top: 30px;
+  font-weight: 500;
+
+}
 .App{
   place-items: center;
 }

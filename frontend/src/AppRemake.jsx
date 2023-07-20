@@ -9,20 +9,49 @@ import Search from "./components/Search";
 import Plots from "./components/Plots";
 import Sents from "./components/Sents";
 import Tweets from "./components/Tweets";
+
 Chart.register(CategoryScale);
 
-function App() {
-  const [keyword, setKeyword] = useState([]);
+function AppRemake() {
+  const [keyword, setKeyword] = useState("");
+  const [overallSent, setOverallSent] = useState([]);
+  const [sent, setSent] = useState([]);
+  const [tweets, setTweets] = useState([]);
+  const [value, setvalue] = useState("");
+  const [error, seterror] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
+  const onInputChange = (e) => {
+    setvalue(e.target.value);
+  };
+
+  const clearTweets = () => {
+    setTweets([]);
+  };
+
+  const submitQuery = (e) => {
+    e.preventDefault();
+    clearTweets();
+
+    if (!value) {
+      alert("please enter a key word");
+    }
+    setKeyword(value);
+    setvalue("");
+  };
+
+  //*To fetch all number of tweets tweets
   const fetchOverallSent = async () => {
     const res = await fetch("http://127.0.0.1:8000/overall");
 
     const data = await res.json();
-    console.log("fetched overall sent data");
+    // console.log("fetched overall sent data");
 
     return data;
   };
 
+  //*To fetch real tweets
   const fetchSent = async () => {
     // FIXME when there is no keyword catch the error instead of setting error as sent
     var myHeaders = new Headers();
@@ -37,24 +66,17 @@ function App() {
       headers: myHeaders,
       body: raw,
     };
-
-    const res = await fetch("http://127.0.0.1:8000/sentiments", requestOptions);
-    const data = await res.json();
-    // console.log("fetch sent", data);
-    return data;
-  };
-
-  const submitQuery = (e) => {
-    e.preventDefault();
-    clearTweets();
-    const query_text_element = document.getElementById("query_text");
-    const query = query_text_element.value;
-    console.log("search button clicked", query);
-    if (!query) {
-      alert("please enter a key word");
+    try {
+      const res = await fetch(
+        "http://127.0.0.1:8000/sentiments",
+        requestOptions
+      );
+      const data = await res.json();
+      // console.log("fetch sent", data);
+      return data;
+    } catch (err) {
+      console.log();
     }
-    setKeyword(query);
-    query_text_element.value = "";
   };
 
   const fetchTweets = async (title) => {
@@ -74,36 +96,36 @@ function App() {
       headers: myHeaders,
       body: raw,
     };
+    try {
+      setLoading(true);
+      let res = await fetch("http://127.0.0.1:8000/tweets", requestOptions);
+      let data = await res.json();
+      if (data.detail === "Not Found") {
+        throw Error("Couldn't find data");
+      }
+      console.log(data);
 
-    let res = await fetch("http://127.0.0.1:8000/tweets", requestOptions);
-    let data = await res.json();
-    console.log(data);
-
-    setTweets(data.tweets);
-    setKeyword(title);
+      setTweets(data.tweets);
+      setLoading(false);
+      setKeyword(title);
+    } catch (err) {
+      console.error(err);
+    }
   };
-
-  const clearTweets = () => {
-    setTweets([]);
-  };
-
-  const [overallSent, setOverallSent] = useState([]);
 
   useEffect(() => {
     const getOverallSent = async () => {
       const overallSent = await fetchOverallSent();
-      console.log(overallSent);
+      // console.log(overallSent);
       setOverallSent(overallSent);
     };
     getOverallSent();
   }, []);
 
-  const [sent, setSent] = useState([]);
-
   useEffect(() => {
     const getSent = async () => {
       const newsent = await fetchSent();
-      console.log("new sent", newsent);
+      // console.log("new sent", newsent);
       if (newsent.title) {
         // setSent(newsent);
         setSent([newsent, ...sent]);
@@ -111,16 +133,17 @@ function App() {
     };
     getSent();
   }, [keyword]);
-
-  const [tweets, setTweets] = useState([]);
-
   return (
     <div className="App">
       <div>
         <h1>Tweet Analysis</h1>
       </div>
       <div>
-        <Search onsubmit={submitQuery}></Search>
+        <Search
+          onsubmit={submitQuery}
+          value={value}
+          onInputChange={onInputChange}
+        ></Search>
       </div>
 
       <div id="overallSent">
@@ -131,19 +154,19 @@ function App() {
         ></Plots>
       </div>
 
+      <div id="sents">
+        <Sents sents={sent} showTweets={fetchTweets} />
+      </div>
+
       <div id="tweet_container">
         <Tweets
           tweets={tweets}
           title={keyword}
+          loading={loading}
           clearTweets={clearTweets}
         ></Tweets>
-      </div>
-
-      <div id="sents">
-        <Sents sents={sent} showTweets={fetchTweets} />
       </div>
     </div>
   );
 }
-
-export default App;
+export default AppRemake;
