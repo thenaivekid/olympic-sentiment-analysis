@@ -1,7 +1,7 @@
 import { Bar } from "react-chartjs-2";
 
 const BarChart = ({ chartData, title, no_of_tweets }) => {
-    console.log(chartData)
+    // console.log(chartData)
   return (
     <div className="chart-container">
       <h2 style={{ textAlign: "center" }}>{ title }</h2>

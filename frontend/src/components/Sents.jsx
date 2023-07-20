@@ -1,7 +1,7 @@
 import Sent from "./Sent"
 import makeData from "../utils/makeData"
 const Sents = ({ sents, showTweets }) => {
-    console.log('sents', sents)
+    // console.log('sents', sents)
     // console.log(showTweets, 'from sents')
     
     return (
