@@ -1,5 +1,7 @@
 # Tweeter analysis
 
+<img src="ss.png">
+
 An easy to use app to visualize what people are talking on socialn  media during an occassion eg Olypic.
 
 ## Features to be added:

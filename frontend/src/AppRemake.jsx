@@ -136,7 +136,7 @@ function AppRemake() {
   return (
     <div className="App">
       <div>
-        <h1>Tweet Analysis</h1>
+        <h1>Social media Analysis</h1>
       </div>
       <div>
         <Search
@@ -145,19 +145,7 @@ function AppRemake() {
           onInputChange={onInputChange}
         ></Search>
       </div>
-
-      <div id="overallSent">
-        <Plots
-          chartData={makeData(overallSent.count)}
-          title={"Overall Sentiment"}
-          no_of_tweets={overallSent.no_of_tweets}
-        ></Plots>
-      </div>
-
-      <div id="sents">
-        <Sents sents={sent} showTweets={fetchTweets} />
-      </div>
-
+      
       <div id="tweet_container">
         <Tweets
           tweets={tweets}
@@ -165,6 +153,19 @@ function AppRemake() {
           loading={loading}
           clearTweets={clearTweets}
         ></Tweets>
+      </div>
+
+      <div id="sents">
+        <Sents sents={sent} showTweets={fetchTweets} />
+      </div>
+
+    
+      <div id="overallSent">
+        <Plots
+          chartData={makeData(overallSent.count)}
+          title={"Overall Sentiment"}
+          no_of_tweets={overallSent.no_of_tweets}
+        ></Plots>
       </div>
     </div>
   );
