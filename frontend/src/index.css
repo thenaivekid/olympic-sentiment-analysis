@@ -113,6 +113,7 @@ input{
 
 #clear_tweet{
   background-color: red;
+  max-height: 4rem;
 }
 
 #tweet_heading{

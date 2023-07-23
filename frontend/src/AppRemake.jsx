@@ -16,7 +16,6 @@ function AppRemake() {
   const [sent, setSent] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [value, setvalue] = useState("");
-  const [error, seterror] = useState(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -39,19 +38,13 @@ function AppRemake() {
     setvalue("");
   };
 
-  //*To fetch all number of tweets tweets
   const fetchOverallSent = async () => {
     const res = await fetch("https://social-media-ashok.onrender.com/overall");
-
     const data = await res.json();
-    // console.log("fetched overall sent data");
-
     return data;
   };
 
-  //*To fetch real tweets
   const fetchSent = async () => {
-    // FIXME when there is no keyword catch the error instead of setting error as sent
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -69,12 +62,10 @@ function AppRemake() {
         requestOptions
       );
       const data = await res.json();
-      // console.log("fetch sent", data);
       return data;
   };
 
   const fetchTweets = async (title) => {
-    // FIXME
     console.log("fetch tweets", title);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -94,11 +85,9 @@ function AppRemake() {
       setLoading(true);
       let res = await fetch("https://social-media-ashok.onrender.com/tweets", requestOptions);
       let data = await res.json();
-      if (data.detail === "Not Found") {
-        throw Error("Couldn't find data");
+      if (data.detail === "Resources not found.") {
+        throw Error("CResources not found.");
       }
-      console.log(data);
-
       setTweets(data.tweets);
       setLoading(false);
       setKeyword(title);

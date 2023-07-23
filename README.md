@@ -6,7 +6,6 @@ https://olympic-sentiment-analysis-gdgyrsntw-thenaivekid.vercel.app/
 Demo Video 
 https://youtu.be/5lwiuEWD7ko
 
-<img src="ss.png">
 
 # Documentation
 
@@ -59,6 +58,8 @@ In the `src/components` we have:
 - `Tweets`: It shows the actual posts from the social media
 - `Search`: It has a input field to take the keyword and a submit button to call the API for the keyword.
 
+`AppRemake.jsx` renders all the components in the right order and calls the APIs.
+
 
 ## Usage
 
@@ -82,3 +83,6 @@ npm run dev
 backend: https://social-media-ashok.onrender.com/greet/
 <br>
 frontend: https://olympic-sentiment-analysis-gdgyrsntw-thenaivekid.vercel.app/
+
+<img src="ss.png">
+
