@@ -7,17 +7,7 @@ const BarChart = ({ chartData, title, no_of_tweets }) => {
       <h3>Total tweets: { no_of_tweets }</h3>
       <Bar
         data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: false,
-              text: ''
-            },
-            legend: {
-              display: false
-            }
-          }
-        }}
+        
       />
     </div>
   );
