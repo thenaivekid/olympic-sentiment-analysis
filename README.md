@@ -15,12 +15,12 @@ An easy to use app to visualize what people are talking on socialn  media during
 2. To run the backed
 
 ```
-pip3 install -r requirements.txt
 cd backend
+pip3 install -r requirements.txt
 uvicorn main:app --reload
 
 ```
-3. To run the frontend
+1. To run the frontend
 ```
 npm install react
 cd frontend
