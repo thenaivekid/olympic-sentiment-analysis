@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import PieChart from "./components/PieChart";
-import BarChart from "./components/Barchart";
 import makeData from "./utils/makeData";
 import Search from "./components/Search";
 import Plots from "./components/Plots";
