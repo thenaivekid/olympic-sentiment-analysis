@@ -16,7 +16,7 @@ export const fetchTweets = async (title) => {
     body: raw,
   };
 
-  let res = await fetch("http://127.0.0.1:8000/tweets", requestOptions);
+  let res = await fetch("https://social-media-ashok.onrender.com/tweets", requestOptions);
 
   return res;
 };

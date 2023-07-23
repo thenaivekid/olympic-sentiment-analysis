@@ -13,7 +13,7 @@ export const fetchSent = async () => {
       body: raw,
     };
 
-    const res = await fetch("http://127.0.0.1:8000/sentiments", requestOptions);
+    const res = await fetch("https://social-media-ashok.onrender.com/sentiments", requestOptions);
     const data = await res.json();
     // console.log("fetch sent", data);
     return data;

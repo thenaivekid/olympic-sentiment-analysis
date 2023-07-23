@@ -1,5 +1,5 @@
 export const fetchOverallSent = async () => {
-  const res = await fetch("http://127.0.0.1:8000/overall");
+  const res = await fetch("https://social-media-ashok.onrender.com/overall");
 
   const data = await res.json();
 

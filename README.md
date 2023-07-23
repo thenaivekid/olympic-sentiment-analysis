@@ -30,3 +30,5 @@ cd frontend
 npm run dev
 ```
 
+# live 
+backend : https://social-media-ashok.onrender.com/greet/
