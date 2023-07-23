@@ -1,5 +1,5 @@
 import PieChart from "./PieChart";
-import  BarChart  from './Barchart'
+import  BarChart  from './Barchart';
 const Plots = ({ chartData, title, no_of_tweets }) => {
     return (
             <div className="sent_card_plots">
