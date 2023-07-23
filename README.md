@@ -1,5 +1,8 @@
 # Tweeter analysis
 
+Try it out:
+https://olympic-sentiment-analysis-gdgyrsntw-thenaivekid.vercel.app/
+
 Demo Video 
 https://youtu.be/5lwiuEWD7ko
 
@@ -31,4 +34,5 @@ npm run dev
 ```
 
 # live 
-backend : https://social-media-ashok.onrender.com/greet/
+backend: https://social-media-ashok.onrender.com/greet/
+frontend: https://olympic-sentiment-analysis-gdgyrsntw-thenaivekid.vercel.app/
