@@ -41,7 +41,7 @@ function AppRemake() {
 
   //*To fetch all number of tweets tweets
   const fetchOverallSent = async () => {
-    const res = await fetch("http://127.0.0.1:8000/overall");
+    const res = await fetch("https://social-media-ashok.onrender.com/overall");
 
     const data = await res.json();
     // console.log("fetched overall sent data");
@@ -64,17 +64,13 @@ function AppRemake() {
       headers: myHeaders,
       body: raw,
     };
-    try {
       const res = await fetch(
-        "http://127.0.0.1:8000/sentiments",
+        "https://social-media-ashok.onrender.com/sentiments",
         requestOptions
       );
       const data = await res.json();
       // console.log("fetch sent", data);
       return data;
-    } catch (err) {
-      console.log();
-    }
   };
 
   const fetchTweets = async (title) => {
@@ -96,7 +92,7 @@ function AppRemake() {
     };
     try {
       setLoading(true);
-      let res = await fetch("http://127.0.0.1:8000/tweets", requestOptions);
+      let res = await fetch("https://social-media-ashok.onrender.com/tweets", requestOptions);
       let data = await res.json();
       if (data.detail === "Not Found") {
         throw Error("Couldn't find data");
