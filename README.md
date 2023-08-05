@@ -11,7 +11,7 @@ https://youtu.be/5lwiuEWD7ko
 
 ## Working with data
 
-An easy to use app to visualize what people are talking on socialn  media during an Oympics.
+An easy to use app to visualize what people are talking on social  media during an Oympics.
 
 <!-- ## Features to be added:
 
